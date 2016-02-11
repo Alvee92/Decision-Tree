@@ -19,12 +19,12 @@ public class Tools
         string memoryBool = temp[temp.Length -1]; //est utilisé pour convertir en boolen la dernier colonne du tableau. 
 
         Matrix matrix = new Matrix(temp.Length - 1); //the matrix which will contain all the values
-
+    
         while (ligne != null)
         {
            temp = ligne.Split(',');
             
-            for (int i = 0; i < temp.Length - 2; i++)
+            for (int i = 0; i < temp.Length - 1; i++)
             {
                 if(temp[temp.Length-1] == memoryBool)
                 {
@@ -41,12 +41,13 @@ public class Tools
             }
 
                 ligne = reader.ReadLine();
+                matrix.Instances++;
         }
         reader.Close();
         return matrix;
     }
 
-    public static void Info(List<Tuple<string, bool>> list)
+    public static List<Triple> Sort(List<Tuple<string, bool>> list)
     {
         List<Triple> result = new List<Triple>();
         List<string> attribute = new List<string>();
@@ -79,26 +80,40 @@ public class Tools
 
             }
         }
-        
-        foreach(Triple test in result)
+        foreach(Triple triple in result)
         {
-            Console.WriteLine(Entropy(test) );
+           // Console.WriteLine(AttributeEntropy(triple));
         }
-        
+        return result;
     }
 
-    public static double Entropy(Triple info)
+    public static double AttributeEntropy(Triple info)
     {
-        int total = info.True + info.False;
-        double p1 = info.True / total;
-        float p2 = info.False / total;
+        float total = info.True + info.False;
+        float p1 = info.True / total;
+        float p2 = (float)info.False / (float)total;
 
         //Console.WriteLine(p1 + ", " + p2);
-        Console.WriteLine(info.True);
+        //Console.WriteLine("variable p1 " +p1);
 
 
-        double result = (-p1 * Math.Log(p1) - p2 * Math.Log(p2));
+        double result = (1/Math.Log(2))*(-p1 * Math.Log(p1) - p2 * Math.Log(p2));
+
         return result;
+    }
+
+    public static double Entropy(List<Tuple<string, bool>> list,int totalInstances)
+    {
+        List<Triple> attributes = Sort(list);
+        double result = 0;
+        foreach(Triple component in attributes)
+        {
+            //Console.WriteLine((double)totalInstances) ;
+            result += ((component.True + component.False) / (double)totalInstances) * AttributeEntropy(component);
+        }
+
+        return result;
+
     }
 
     public class Triple

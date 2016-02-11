@@ -9,10 +9,12 @@ namespace Decision_Tree
     public class Matrix
     {
         public List<Tuple<string, bool>>[] Content;
+        public int Instances;
 
 
         public Matrix(int length)
         {
+            Instances = 0;
             Content = new List<Tuple<string, bool>>[length];
             for (int i = 0; i < length; i++)
             {

@@ -12,11 +12,23 @@ namespace Decision_Tree
         {
             Matrix matrix = Tools.ReadFile("Qualitative_Bankruptcy.data.txt");
 
-            Tools.Info(matrix.Content[0]);
-            Console.WriteLine(Math.Log(3/5));
-            double test = 3.00 / 5.00;
-            
-            Console.WriteLine(test);
+            /*for (int i = 0; i < matrix.Content.Length;i++ )
+            {
+                Console.WriteLine(Tools.Entropy(matrix.Content[i], matrix.Instances));
+
+            }
+             
+   
+            foreach(Tuple<string,bool> tuple in matrix.Content[4])
+            {
+                Console.WriteLine(tuple.Item1 + " ," + tuple.Item2);
+            }
+            foreach (Tools.Triple triple in Tools.Sort(matrix.Content[4]))
+            {
+                Console.WriteLine(triple.Attribute + ", " + triple.True + ", " + triple.False);
+            }*/
+
+            Console.WriteLine(Tools.Entropy(matrix.Content[3], matrix.Instances));
 
             Console.ReadKey();
         }
