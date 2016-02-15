@@ -10,9 +10,10 @@ namespace Decision_Tree
     {
         static void Main(string[] args)
         {
-            Matrix matrix = Tools.ReadFile("test2.txt");
+            Matrix matrix = Tools.ReadFile("test.txt");
             string test = Tools.DecisionTree(matrix,matrix.Instances);
-            //Console.WriteLine(test);
+            Console.WriteLine(test);
+            
             /*for (int i = 0; i < matrix.Content.Length;i++ )
             {
                 Console.WriteLine(Tools.AttributeEntropy(matrix.Info)-Tools.Entropy(matrix.Content[i], matrix.Instances) );

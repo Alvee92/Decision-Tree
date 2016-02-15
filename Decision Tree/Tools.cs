@@ -137,7 +137,52 @@ public class Tools
         }
 
     }
+    public static List<Matrix> NewMatrix(Matrix matrix,List<Triple>matrixInfo, int indiceRemoveAt) //create the new matrixes after choosing the attribute
+    {
+        List<Matrix> ListMatrix = new List<Matrix>();
 
+        foreach(Triple tripleAttr in matrixInfo)
+        {
+            string attribute = tripleAttr.Attribute;
+            List<int> listIndice = new List<int>();
+
+            for(int i =0; i<matrix.Content[indiceRemoveAt].Count;i++)
+            {
+                if (matrix.Content[indiceRemoveAt][i].Item1 == attribute)
+                    listIndice.Add(i);
+            }
+            
+            if (matrix.Content.Length > 0)
+            {
+                Matrix newMatrix = new Matrix(matrix.Content.Length - 1);
+                int indiceNewMat = 0;
+                for (int i = 0; i < matrix.Content.Length ; i++) 
+                {
+                    if (i != indiceRemoveAt)
+                    {
+                        for (int indiceDepth = 0; indiceDepth < listIndice.Count; indiceDepth++)
+                        {
+                             newMatrix.Content[indiceNewMat].Add(matrix.Content[i][listIndice[indiceDepth]]);
+                            
+                        }
+                        indiceNewMat++;
+                    }
+                   
+                    
+                }
+                try
+                {
+                    newMatrix.Instances = newMatrix.Content[0].Count;
+                }
+                catch (Exception e) { }
+                ListMatrix.Add(newMatrix);
+            }
+            
+
+        }
+
+        return ListMatrix;
+    }
     public static string DecisionTree(Matrix matrix,int totalInstances) //Compute the total entropy of an attribute in the matrix (corresponding to a column of the matrix)
     {
         List<Triple> [] matrixInformations = new List<Triple>[matrix.Content.Length];
@@ -167,9 +212,17 @@ public class Tools
                 indiceMax = i;
             }
         }
-        
 
-        result += "attribute "+ indiceMax + " \n"; //write the first attribute which has been chosen
+        List<Matrix> listd = new List<Matrix>();
+        try
+        {
+            listd = NewMatrix(matrix, matrixInformations[indiceMax], indiceMax);
+        }
+        catch (Exception e) { }
+
+
+
+        
         //Begining of recusrsivity
         if (max == AttributeEntropy(matrix.Info)) //if all the attributes have a null entropy, the path is finished
         {
@@ -177,24 +230,21 @@ public class Tools
         }
         else //else we have to create few new matrixes, one for each branch of the tree
         {
-            
-            foreach (Triple attribute in matrixInformations[indiceMax])
+            result += "attribute " + indiceMax + " \n"; //write the first attribute which has been chosen
+
+            List<Matrix> NewMatrixes = new List<Matrix>();
+            try
             {
-                string attributeName = attribute.Attribute; //get the first attribute of the chosen column
-                Matrix newMatrix = new Matrix(matrix.Content.Length); //creation of a new matrix
-
-                for (int i = 0; i<matrix.Content.Length; i++)
-                {
-                    if(matrix.Content[indiceMax][i].Item1 == attributeName)
-                    {
-
-                    }
-                }
+                NewMatrixes = NewMatrix(matrix, matrixInformations[indiceMax], indiceMax);
             }
+            catch (Exception e) { }
 
-         
+            foreach(Matrix matrixes in NewMatrixes)
+            {
+                result += " " + DecisionTree(matrixes,matrixes.Instances);
+            }
         }
-       
+
 
         return result;
 
