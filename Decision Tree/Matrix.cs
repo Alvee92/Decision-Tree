@@ -10,11 +10,13 @@ namespace Decision_Tree
     {
         public List<Tuple<string, bool>>[] Content;
         public int Instances;
+        public Tools.Triple Info;
 
 
         public Matrix(int length)
         {
             Instances = 0;
+            Info = new Tools.Triple();
             Content = new List<Tuple<string, bool>>[length];
             for (int i = 0; i < length; i++)
             {
