@@ -31,7 +31,7 @@ public class Tools
 
                 for (int i = 0; i < temp.Length - 1; i++)
                     {
-                     var value = new Tuple<string, bool>(temp[i], true); //cration of a tuple which contain the value of the attribute and the class (true or not)
+                     var value = new Tuple<string, bool,int>(temp[i], true,i); //cration of a tuple which contain the value of the attribute and the class (true or not)
                      matrix.Content[i].Add(value);
     
                     }
@@ -42,7 +42,7 @@ public class Tools
 
                     for (int i = 0; i < temp.Length - 1; i++)
                     {
-                        var value = new Tuple<string, bool>(temp[i], false);
+                        var value = new Tuple<string, bool,int>(temp[i], false,i);
                         matrix.Content[i].Add(value);
                     }
 
@@ -59,12 +59,12 @@ public class Tools
         return matrix;
     }
 
-    public static List<Triple> Sort(List<Tuple<string, bool>> list) //sort a list of a matrix, return a list of triple(containing the name of the attribute, and the result true/false)
+    public static List<Triple> Sort(List<Tuple<string, bool,int>> list) //sort a list of a matrix, return a list of triple(containing the name of the attribute, and the result true/false)
     {
         List<Triple> result = new List<Triple>();
         List<string> attribute = new List<string>();
 
-        foreach(Tuple<string,bool> tuple in list)
+        foreach(Tuple<string,bool,int> tuple in list)
         {
             if(attribute.Contains(tuple.Item1))
             {
@@ -170,11 +170,13 @@ public class Tools
                    
                     
                 }
-                try
+
+                if (newMatrix.Content.Length > 0)
                 {
                     newMatrix.Instances = newMatrix.Content[0].Count;
                 }
-                catch (Exception e) { }
+                else { Console.WriteLine("test1"); }
+               
                 ListMatrix.Add(newMatrix);
             }
             
@@ -198,10 +200,6 @@ public class Tools
         int indiceMax = 0; //used to get the indice of the columns which will be chosen for the tree
         double max = 0; //get the max gain of the matrix
          
-
-        List<Triple> list = new List<Triple>();
-       // double entropy1 = Entropy(list , matrix.Info, matrix.Instances);
-        //Console.WriteLine(entropy1);
         
         for (int i =0; i<matrixInformations.Length; i++) //compute the gain of each columns
         {
@@ -214,12 +212,12 @@ public class Tools
         }
 
         List<Matrix> listd = new List<Matrix>();
-        try
+
+        if (matrixInformations.Length > 0)
         {
             listd = NewMatrix(matrix, matrixInformations[indiceMax], indiceMax);
         }
-        catch (Exception e) { }
-
+        else { Console.WriteLine("test2"); }
 
 
         
@@ -230,20 +228,21 @@ public class Tools
         }
         else //else we have to create few new matrixes, one for each branch of the tree
         {
-            result += "attribute " + indiceMax + " \n"; //write the first attribute which has been chosen
-
+            
+                result += "attribute " + matrix.Content[indiceMax][0].Item3 + " \n"; //write the first attribute which has been chosen
+            
             List<Matrix> NewMatrixes = new List<Matrix>();
-            try
-            {
+            
                 NewMatrixes = NewMatrix(matrix, matrixInformations[indiceMax], indiceMax);
-            }
-            catch (Exception e) { }
+           
 
             foreach(Matrix matrixes in NewMatrixes)
             {
-                result += " " + DecisionTree(matrixes,matrixes.Instances);
+                Console.WriteLine(DecisionTree(matrixes, matrixes.Instances));
+                //result += " " + DecisionTree(matrixes,matrixes.Instances);
             }
-        }
+                }
+        
 
 
         return result;

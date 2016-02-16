@@ -10,3 +10,9 @@ C:\Users\Hakim\Documents\Visual Studio 2013\Projects\Decision Tree\Decision Tree
 C:\Users\Hakim\Documents\Visual Studio 2013\Projects\Decision Tree\Decision Tree\bin\Debug\Decision Tree.exe
 C:\Users\Hakim\Documents\Visual Studio 2013\Projects\Decision Tree\Decision Tree\bin\Debug\Decision Tree.pdb
 C:\Users\Hakim\Documents\Visual Studio 2013\Projects\Decision Tree\Decision Tree\obj\Debug\Decision Tree.csprojResolveAssemblyReference.cache
+C:\Users\Hakim\Documents\Visual Studio 2012\Projects\Decision-Tree\Decision Tree\bin\Debug\Decision Tree.exe.config
+C:\Users\Hakim\Documents\Visual Studio 2012\Projects\Decision-Tree\Decision Tree\obj\Debug\Decision Tree.exe
+C:\Users\Hakim\Documents\Visual Studio 2012\Projects\Decision-Tree\Decision Tree\obj\Debug\Decision Tree.pdb
+C:\Users\Hakim\Documents\Visual Studio 2012\Projects\Decision-Tree\Decision Tree\bin\Debug\Decision Tree.exe
+C:\Users\Hakim\Documents\Visual Studio 2012\Projects\Decision-Tree\Decision Tree\bin\Debug\Decision Tree.pdb
+C:\Users\Hakim\Documents\Visual Studio 2012\Projects\Decision-Tree\Decision Tree\obj\Debug\Decision Tree.csprojResolveAssemblyReference.cache
