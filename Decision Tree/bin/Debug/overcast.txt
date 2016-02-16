@@ -1,0 +1,4 @@
+h,h,f,y
+c,n,t,y
+m,h,t,y
+h,n,f,y
